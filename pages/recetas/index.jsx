@@ -6,11 +6,11 @@ export default function recetas({data}) {
     <Layout title={'Recetas'} description={'Pagina de Recetas'}>
         <h1>Recetas</h1>
         {
-          data.data.map(({id, attributes}) => (
+          data.map(({id, title, body}) => (
             <div key={id}>
               <Link href={ `/recetas/${id}` }>
-                <h2>{id} - {attributes.alergia}</h2>
-                <p>{attributes.diagnostico}</p>
+                <h2>{id} - {title}</h2>
+                <p>{body}</p>
               </Link>   
             </div>
           ))
@@ -21,7 +21,7 @@ export default function recetas({data}) {
 
 export async function getStaticProps() {
   try {
-    const res = await fetch('http://127.0.0.1:1337/api/recetas');
+    const res = await fetch('https://jsonplaceholder.typicode.com/posts');
     const data = await res.json();
     
     return {                                                                                                                                                              

@@ -4,18 +4,18 @@ export default function detalleReceta({data}) {
   return (
     <Layout title={'Detalle Receta'} description={'Pagina de detalle de receta'}>
       <h1> Detalle Productos</h1>
-      <p>{data.data.attributes.alergia}</p>
-      <p>{data.data.attributes.fecha}</p>
-      <p>{data.data.attributes.diagnostico}</p>
+      <p>{data.id}</p>
+      <p>{data.title}</p>
+      <p>{data.body}</p>
     </Layout>
   )
 }
 
 export async function getStaticPaths(){
   try{
-    const res = await fetch('http://127.0.0.1:1337/api/recetas');
+    const res = await fetch('https://jsonplaceholder.typicode.com/posts');
     const data = await res.json();
-    const paths = data.data.map(({ id }) => ({ params: { id:`${id}` } }));
+    const paths = data.map(({ id }) => ({ params: { id:`${id}` } }));
     return {
       paths,
       fallback: false,
@@ -27,7 +27,7 @@ export async function getStaticPaths(){
 
 export async function getStaticProps({ params }) {
   try {
-    const res = await fetch('http://127.0.0.1:1337/api/recetas/'+params.id);
+    const res = await fetch('https://jsonplaceholder.typicode.com/posts/'+params.id);
     const data = await res.json();
     
     return {                                                                                                                                                              
